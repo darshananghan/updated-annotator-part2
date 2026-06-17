@@ -22,8 +22,23 @@ PROLIFIC_COMPLETION_URL = "https://app.prolific.com/submissions/complete?cc=YOUR
 # -----------------------------
 # MongoDB connection
 # -----------------------------
+def _check_secrets():
+    if "mongo" not in st.secrets or "uri" not in st.secrets["mongo"]:
+        st.error(
+            "**MongoDB secrets are not configured.**\n\n"
+            "Go to your Streamlit Cloud app → ⋮ → Settings → Secrets and add:\n\n"
+            "```toml\n"
+            "[mongo]\n"
+            'uri     = "mongodb+srv://<user>:<password>@<cluster>.mongodb.net/"\n'
+            'db_name = "implicit_bias_study"\n'
+            "```"
+        )
+        st.stop()
+
+
 @st.cache_resource
 def _mongo_client():
+    _check_secrets()
     return pymongo.MongoClient(
         st.secrets["mongo"]["uri"],
         serverSelectionTimeoutMS=5000,
