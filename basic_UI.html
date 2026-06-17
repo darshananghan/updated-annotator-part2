@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Data Collection - E/I Choice (Offline Export)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; }
+        .card { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05); }
+        .choice-btn {
+            transition: transform 0.1s, box-shadow 0.1s, background-color 0.1s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border-width: 4px;
+            text-align: center;
+        }
+        .choice-btn:active { transform: scale(0.98); }
+        .choice-btn.e-choice { border-color: #3b82f6; background-color: #eff6ff; color: #1d4ed8; }
+        .choice-btn.i-choice { border-color: #10b981; background-color: #ecfdf5; color: #047857; }
+        .choice-btn.selected {
+            box-shadow: 0 0 0 4px #facc15; /* Yellow ring for selection feedback */
+        }
+        .skip-btn:hover { background-color: #e5e7eb; }
+        .hidden-message { opacity: 0; transition: opacity 0.5s ease-in-out; }
+        .visible-message { opacity: 1; }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <!-- Loading state (now immediate) -->
+    <div id="loading-spinner" class="text-center hidden">
+        <p class="mt-4 text-gray-600">Application ready.</p>
+    </div>
+
+    <div id="app-container" class="hidden w-full max-w-3xl bg-white card rounded-2xl p-6 md:p-10">
+        <h1 class="text-3xl font-extrabold text-gray-900 mb-6 text-center">E/I Categorical Assessment</h1>
+        <div id="survey-content" class="space-y-6">
+
+            <!-- Student ID Input (New Feature) -->
+            <div class="mb-4">
+                <label for="student-id-input" class="block text-sm font-medium text-gray-700 mb-1">Student/User ID</label>
+                <input id="student-id-input" type="text" placeholder="Enter ID (e.g., S123)" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+            </div>
+
+            <!-- Progress & Question Number -->
+            <div id="progress-area">
+                <div class="flex justify-between items-center mb-2">
+                    <p class="text-sm font-medium text-gray-500">
+                        Question <span id="current-q-number">1</span> of 20
+                    </p>
+                    <p id="current-answer-status" class="text-sm font-medium text-gray-500 italic">
+                        No answer saved
+                    </p>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Question Display -->
+            <div class="bg-blue-50 p-4 rounded-xl">
+                <p id="question-text" class="text-xl font-semibold text-gray-800">
+                    <!-- Question text will be inserted here -->
+                </p>
+            </div>
+
+            <!-- Interaction Zone (E/I Choices) -->
+            <div id="interaction-zone" class="grid grid-cols-2 gap-4 h-64 md:h-96">
+                <!-- Left Side: Choice E -->
+                <button id="choice-e" data-choice="E" class="choice-btn e-choice rounded-xl shadow-lg hover:shadow-xl">
+                    <span class="text-5xl font-black">E</span>
+                    <span class="mt-2 text-lg font-semibold">Choose 'E' (Press E)</span>
+                </button>
+
+                <!-- Right Side: Choice I -->
+                <button id="choice-i" data-choice="I" class="choice-btn i-choice rounded-xl shadow-lg hover:shadow-xl">
+                    <span class="text-5xl font-black">I</span>
+                    <span class="mt-2 text-lg font-semibold">Choose 'I' (Press I)</span>
+                </button>
+            </div>
+
+            <!-- Navigation and Skip Buttons -->
+            <div class="flex justify-between items-center pt-4">
+                <button id="prev-btn" class="flex items-center text-gray-700 bg-gray-100 hover:bg-gray-200 px-4 py-3 rounded-lg font-medium transition-colors" disabled>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                    Previous
+                </button>
+
+                <button id="skip-btn" data-choice="SKIP" class="bg-yellow-100 text-yellow-800 px-6 py-3 rounded-lg font-semibold skip-btn hover:bg-yellow-200 transition-colors">
+                    Skip Question (Spacebar)
+                </button>
+
+                <!-- Submission Placeholder (Only visible on final question) -->
+                <button id="submit-btn" class="flex items-center bg-green-600 text-white px-6 py-3 rounded-lg font-medium transition-colors hidden">
+                    Generate Data
+                </button>
+            </div>
+            
+            <!-- Message Box -->
+            <div id="message-box" class="hidden-message text-center p-3 rounded-lg mt-4 text-white font-medium" role="alert">
+                <!-- Messages (e.g., success, error) will appear here -->
+            </div>
+        </div>
+
+        <!-- Results Area (Hidden until submission) -->
+        <div id="results-area" class="hidden mt-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Data Collected!</h2>
+            <p class="text-gray-600 mb-4 text-center">
+                **1. Copy the data** below. **2. Paste it into a new row** on your Google Sheet.
+            </p>
+            
+            <textarea id="csv-output" rows="5" readonly class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 font-mono text-sm"></textarea>
+            
+            <button id="copy-btn" class="w-full mt-4 bg-purple-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-purple-700 transition-colors">
+                Copy Data to Clipboard
+            </button>
+        </div>
+    </div>
+
+    <script type="module">
+        // --- Application State and Data ---
+
+        // Mock list of 120 questions
+        const ALL_QUESTIONS = Array.from({ length: 120 }, (_, i) => ({
+            id: `Q${i + 1}`,
+            text: `Question ${i + 1}: Decide whether this statement aligns more with an 'E' perspective or an 'I' perspective on the topic of ${['Technology Adoption', 'Historical Context', 'Future Trends', 'Ethical Implications', 'Socio-Economic Factors', 'Personal Experience'][i % 6]}.`
+        }));
+
+        const TOTAL_QUESTIONS_TO_ASK = 20;
+        let currentQuestions = []; // The 20 randomly selected questions
+        let currentQuestionIndex = 0;
+        // Stores answers: { questionId: string, questionText: string, answer: 'E' | 'I' | 'SKIP' | '' }
+        let answers = []; 
+
+        // --- Utility Functions ---
+
+        /**
+         * Shuffles array in place.
+         * @param {Array} a items An array containing the items.
+         */
+        function shuffleArray(a) {
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        /**
+         * Selects 20 random questions from the pool.
+         */
+        function selectRandomQuestions() {
+            // Shuffle the complete list and take the first 20
+            const shuffled = shuffleArray([...ALL_QUESTIONS]);
+            currentQuestions = shuffled.slice(0, TOTAL_QUESTIONS_TO_ASK);
+            
+            // Initialize the answers array with placeholders for the selected questions
+            answers = currentQuestions.map(q => ({
+                questionId: q.id,
+                questionText: q.text,
+                answer: '' 
+            }));
+        }
+
+        /**
+         * Displays a temporary message in the message box.
+         * @param {string} text The message content.
+         * @param {string} type 'success' or 'error'.
+         */
+        function showMessage(text, type = 'success') {
+            const box = document.getElementById('message-box');
+            box.textContent = text;
+            box.className = 'hidden-message text-center p-3 rounded-lg mt-4 font-medium visible-message';
+            box.classList.add(type === 'success' ? 'bg-green-500' : 'bg-red-500');
+
+            setTimeout(() => {
+                box.classList.remove('visible-message');
+                box.classList.add('hidden-message');
+            }, 3000);
+        }
+
+        /**
+         * Generates the CSV content in the requested format (StudentID, Q1, Q2, etc.)
+         * and displays it in the results area.
+         */
+        function generateAndShowResults() {
+            const studentIdInput = document.getElementById('student-id-input');
+            const studentIdValue = studentIdInput.value.trim();
+
+            if (!studentIdValue) {
+                // Keep survey content visible and highlight the error
+                document.getElementById('survey-content').classList.remove('hidden');
+                document.getElementById('results-area').classList.add('hidden');
+                showMessage("Please enter a Student/User ID before generating data.", 'error');
+                studentIdInput.focus();
+                return;
+            }
+            
+            // 1. Get the list of Question IDs for the header (Q1, Q2, etc.)
+            const questionIds = answers.map(a => a.questionId);
+
+            // 2. Get the student's answers in the correct order
+            // If the answer is empty (''), assume it was skipped for consistency in the sheet
+            const studentAnswers = answers.map(a => a.answer.length ? a.answer : 'SKIP');
+
+            // 3. Construct the CSV string
+            // Header Row: PREPEND StudentID
+            const headerRow = 'StudentID,' + questionIds.join(',');
+            
+            // Data Row: PREPEND the actual ID
+            const dataRow = studentIdValue + ',' + studentAnswers.join(',');
+
+            const csvContent = `${headerRow}\n${dataRow}`;
+
+            // 4. Hide survey, show results
+            document.getElementById('survey-content').classList.add('hidden');
+            document.getElementById('results-area').classList.remove('hidden');
+            document.getElementById('csv-output').value = csvContent;
+
+            // 5. Attach copy handler (safe to re-attach, event listeners are idempotent)
+            document.getElementById('copy-btn').addEventListener('click', handleCopy);
+
+            showMessage("Data is ready! Copy the results below.", 'success');
+        }
+
+        function handleCopy() {
+            const textarea = document.getElementById('csv-output');
+            textarea.select();
+            
+            // Fallback for secure copy since navigator.clipboard might fail in some contexts
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showMessage("Data copied to clipboard!", 'success');
+                } else {
+                    showMessage("Copy failed. Please manually select and copy the text.", 'error');
+                }
+            } catch (err) {
+                console.error('Copy error:', err);
+                showMessage("Copy failed. Please manually select and copy the text.", 'error');
+            }
+        }
+        
+        // --- UI Rendering and Interaction ---
+        
+        function updateProgressBar() {
+            const percentage = ((currentQuestionIndex + 1) / TOTAL_QUESTIONS_TO_ASK) * 100;
+            document.getElementById('progress-bar').style.width = `${percentage}%`;
+            document.getElementById('current-q-number').textContent = currentQuestionIndex + 1;
+        }
+
+        function highlightChoice(choice) {
+            const eBtn = document.getElementById('choice-e');
+            const iBtn = document.getElementById('choice-i');
+            const statusText = document.getElementById('current-answer-status');
+
+            eBtn.classList.remove('selected');
+            iBtn.classList.remove('selected');
+            
+            if (choice === 'E') {
+                eBtn.classList.add('selected');
+                statusText.textContent = 'Answer saved: E';
+                statusText.classList.remove('text-red-500', 'italic');
+                statusText.classList.add('text-blue-600');
+            } else if (choice === 'I') {
+                iBtn.classList.add('selected');
+                statusText.textContent = 'Answer saved: I';
+                statusText.classList.remove('text-red-500', 'italic');
+                statusText.classList.add('text-green-600');
+            } else if (choice === 'SKIP') {
+                statusText.textContent = 'Skipped';
+                statusText.classList.add('text-red-500', 'italic');
+                statusText.classList.remove('text-blue-600', 'text-green-600');
+            } else { // No answer saved
+                 statusText.textContent = 'No answer saved';
+                 statusText.classList.add('italic');
+                 statusText.classList.remove('text-blue-600', 'text-green-600', 'text-red-500');
+            }
+        }
+        
+        function renderQuestion() {
+            if (currentQuestions.length === 0) return;
+
+            const q = currentQuestions[currentQuestionIndex];
+            const currentAnswer = answers[currentQuestionIndex].answer;
+            
+            document.getElementById('question-text').textContent = q.text;
+            
+            highlightChoice(currentAnswer);
+
+            // Update button states
+            const prevBtn = document.getElementById('prev-btn');
+            const submitBtn = document.getElementById('submit-btn');
+            const skipBtn = document.getElementById('skip-btn');
+
+            if (currentQuestionIndex === 0) {
+                prevBtn.disabled = true;
+                prevBtn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                prevBtn.disabled = false;
+                prevBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+
+            if (currentQuestionIndex === TOTAL_QUESTIONS_TO_ASK - 1) {
+                submitBtn.classList.remove('hidden');
+                skipBtn.classList.add('hidden');
+            } else {
+                submitBtn.classList.add('hidden');
+                skipBtn.classList.remove('hidden');
+            }
+
+            updateProgressBar();
+        }
+        
+        /**
+         * Records the selection and moves to the next question.
+         * @param {'E' | 'I' | 'SKIP'} choice 
+         */
+        function handleChoice(choice) {
+            if (currentQuestionIndex >= TOTAL_QUESTIONS_TO_ASK) return;
+            
+            // Save the choice
+            answers[currentQuestionIndex].answer = choice;
+            
+            // Advance navigation automatically
+            handleNavigation('next');
+        }
+
+        function handleNavigation(direction) {
+            if (direction === 'next') {
+                if (currentQuestionIndex < TOTAL_QUESTIONS_TO_ASK - 1) {
+                    currentQuestionIndex++;
+                    renderQuestion();
+                } else if (currentQuestionIndex === TOTAL_QUESTIONS_TO_ASK - 1) {
+                    // Final submission triggers CSV generation
+                    generateAndShowResults();
+                }
+            } else if (direction === 'prev') {
+                if (currentQuestionIndex > 0) {
+                    currentQuestionIndex--;
+                    renderQuestion();
+                }
+            }
+        }
+
+        function initApplication() {
+            // 1. Hide loading, show app (now immediate)
+            document.getElementById('loading-spinner').classList.add('hidden');
+            document.getElementById('app-container').classList.remove('hidden');
+
+            // 2. Select 20 random questions
+            selectRandomQuestions();
+
+            // 3. Render the first question
+            renderQuestion();
+
+            // 4. Attach click event listeners for E, I, Skip buttons
+            document.getElementById('choice-e').addEventListener('click', () => handleChoice('E'));
+            document.getElementById('choice-i').addEventListener('click', () => handleChoice('I'));
+            document.getElementById('skip-btn').addEventListener('click', () => handleChoice('SKIP'));
+            document.getElementById('submit-btn').addEventListener('click', () => generateAndShowResults());
+            document.getElementById('prev-btn').addEventListener('click', () => handleNavigation('prev'));
+
+            // 5. Attach keyboard event listener
+            window.addEventListener('keydown', (e) => {
+                if (e.repeat) return; // Ignore hold key events
+
+                const key = e.key.toUpperCase();
+                
+                if (key === 'E') {
+                    e.preventDefault();
+                    handleChoice('E');
+                } else if (key === 'I') {
+                    e.preventDefault();
+                    handleChoice('I');
+                } else if (e.code === 'Space') {
+                    e.preventDefault();
+                    // Only handle skip via space if it's not the final submit stage
+                    if (currentQuestionIndex < TOTAL_QUESTIONS_TO_ASK - 1) {
+                        handleChoice('SKIP');
+                    } else {
+                         showMessage("Press 'E', 'I' or the 'Generate Data' button to finish.", 'error');
+                    }
+                }
+            });
+        }
+
+        // Start the application setup (now just calls init)
+        window.onload = initApplication;
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Secrets — never commit these
+.streamlit/secrets.toml
+.env
+
+# Local database (replaced by MongoDB)
+*.db
+*.sqlite
+
+# Excel exports
+*.xlsx
+
+# Virtual environments
+venv/
+.venv/
+env/
