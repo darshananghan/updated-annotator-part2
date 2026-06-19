@@ -107,19 +107,25 @@ def load_questions_from_csv():
         return pd.DataFrame()
 
 
-def insert_questions_if_empty():
-    """Inserts questions from the CSV into MongoDB only when the collection is empty."""
+@st.cache_resource
+def _ensure_questions_loaded():
+    """Runs once per server restart. Reloads from Question_dataset.csv if the
+    MongoDB count doesn't match the CSV — so updating the CSV is enough to
+    get fresh questions on the next deploy."""
     db = get_db()
-    if db.questions.count_documents({}) == 0:
-        st.info(f"Initializing database from {QUESTION_CSV_FILE}...")
+    try:
+        csv_count = len(pd.read_csv(QUESTION_CSV_FILE))
+    except Exception:
+        return False
+
+    if db.questions.count_documents({}) != csv_count:
+        db.questions.drop()
         df = load_questions_from_csv()
         if not df.empty:
             df["others_options"] = df["others_options"].apply(str)
             records = df[["question_id", "question_text", "true_label", "others_options"]].to_dict("records")
             db.questions.insert_many(records)
-            st.success(f"Successfully loaded {len(records)} questions into the database.")
-        else:
-            st.warning("Could not load data from CSV. Cannot start the study.")
+    return True
 
 
 @st.cache_data
@@ -297,7 +303,7 @@ _prolific_session_id_from_url = st.query_params.get("SESSION_ID", "")
 
 # Initialize DB and data
 init_db()
-insert_questions_if_empty()
+_ensure_questions_loaded()
 
 
 # -----------------------------
@@ -507,7 +513,11 @@ elif st.session_state.screen == 3:
             st.progress((current_idx + 1) / len(questions))
 
         st.markdown(f"### {qtext}")
-        st.caption(f"Type the **{category}** that first comes to mind.")
+        st.markdown(
+            f'Type the <span style="color:red; font-size:1.2em; font-weight:bold;">'
+            f'{category}</span> that first comes to mind.',
+            unsafe_allow_html=True,
+        )
 
         if qid not in st.session_state.part1_responses:
             st.session_state.part1_responses[qid] = ""
@@ -639,6 +649,8 @@ elif st.session_state.screen == 6:
     else:
         qid, qtext, true_label, others_options_str = questions[current_idx]
         option_labels = get_question_options(qid, true_label, others_options_str)
+        p2_meta = _question_metadata().get(qid, {})
+        p2_category = p2_meta.get("category", "")
 
         col1, col2 = st.columns([2, 1])
         with col1:
@@ -647,7 +659,11 @@ elif st.session_state.screen == 6:
             st.progress((current_idx + 1) / len(questions))
 
         st.markdown(f"### {qtext}")
-        st.caption("Select the option that best matches Person A for this statement.")
+        st.markdown(
+            f'Select the <span style="color:red; font-size:1.2em; font-weight:bold;">'
+            f'{p2_category}</span> that best matches Person A.',
+            unsafe_allow_html=True,
+        )
 
         if qid not in st.session_state.part2_responses:
             st.session_state.part2_responses[qid] = None
