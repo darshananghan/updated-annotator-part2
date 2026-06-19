@@ -98,7 +98,7 @@ def load_questions_from_csv():
             return []
 
         df["others_options"] = df["others_options"].apply(clean_options)
-        return df[["question_id", "question_text", "true_label", "others_options", "example", "category"]]
+        return df[["question_id", "question_text", "true_label", "others_options"]]
     except FileNotFoundError:
         st.error(
             f"Error: The file '{QUESTION_CSV_FILE}' was not found. "
@@ -108,31 +108,35 @@ def load_questions_from_csv():
 
 
 def insert_questions_if_empty():
-    """Inserts questions from the CSV into MongoDB if the collection is empty.
-    Also migrates existing docs that are missing the example/category fields."""
+    """Inserts questions from the CSV into MongoDB only when the collection is empty."""
     db = get_db()
-    df = load_questions_from_csv()
-    if df.empty:
-        st.warning("Could not load data from CSV. Cannot start the study.")
-        return
-
     if db.questions.count_documents({}) == 0:
         st.info(f"Initializing database from {QUESTION_CSV_FILE}...")
-        df["others_options"] = df["others_options"].apply(str)
-        records = df.to_dict("records")
-        db.questions.insert_many(records)
-        st.success(f"Successfully loaded {len(records)} questions into the database.")
-    else:
-        # Migrate: add example/category to docs that were inserted before these fields existed
-        if db.questions.find_one({"example": {"$exists": False}}) is not None:
-            for _, row in df.iterrows():
-                db.questions.update_one(
-                    {"question_id": int(row["question_id"])},
-                    {"$set": {
-                        "example": str(row["example"]),
-                        "category": str(row["category"]),
-                    }},
-                )
+        df = load_questions_from_csv()
+        if not df.empty:
+            df["others_options"] = df["others_options"].apply(str)
+            records = df[["question_id", "question_text", "true_label", "others_options"]].to_dict("records")
+            db.questions.insert_many(records)
+            st.success(f"Successfully loaded {len(records)} questions into the database.")
+        else:
+            st.warning("Could not load data from CSV. Cannot start the study.")
+
+
+@st.cache_data
+def _question_metadata():
+    """Load example and category from CSV once, cached for the server lifetime."""
+    try:
+        df = pd.read_csv(QUESTION_CSV_FILE)
+        df = df.rename(columns={"id": "question_id"})
+        return {
+            int(row["question_id"]): {
+                "example": str(row.get("example", "")),
+                "category": str(row.get("category", "")),
+            }
+            for _, row in df.iterrows()
+        }
+    except Exception:
+        return {}
 
 
 # -----------------------------
@@ -143,10 +147,7 @@ def get_questions(n=NUM_QUESTIONS):
     db = get_db()
     results = list(db.questions.aggregate([{"$sample": {"size": n}}]))
     return [
-        (
-            r["question_id"], r["question_text"], r["true_label"], r["others_options"],
-            r.get("example", ""), r.get("category", ""),
-        )
+        (r["question_id"], r["question_text"], r["true_label"], r["others_options"])
         for r in results
     ]
 
@@ -494,7 +495,10 @@ elif st.session_state.screen == 3:
     if not questions:
         st.warning("No questions available.")
     else:
-        qid, qtext, true_label, others_options_str, example, category = questions[current_idx]
+        qid, qtext, true_label, others_options_str = questions[current_idx]
+        meta = _question_metadata().get(qid, {})
+        category = meta.get("category", "")
+        example_text = parse_example(meta.get("example", ""))
 
         col1, col2 = st.columns([2, 1])
         with col1:
@@ -508,7 +512,6 @@ elif st.session_state.screen == 3:
         if qid not in st.session_state.part1_responses:
             st.session_state.part1_responses[qid] = ""
 
-        example_text = parse_example(example)
         response_value = st.text_area(
             "Your response",
             value=st.session_state.part1_responses[qid],
@@ -634,7 +637,7 @@ elif st.session_state.screen == 6:
     if not questions:
         st.warning("No questions available.")
     else:
-        qid, qtext, true_label, others_options_str, *_ = questions[current_idx]
+        qid, qtext, true_label, others_options_str = questions[current_idx]
         option_labels = get_question_options(qid, true_label, others_options_str)
 
         col1, col2 = st.columns([2, 1])
