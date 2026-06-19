@@ -18,6 +18,30 @@ TIMER_DURATION_SECONDS = 3
 # Replace YOUR_CODE with the completion code from your Prolific study dashboard
 PROLIFIC_COMPLETION_URL = "https://app.prolific.com/submissions/complete?cc=CD9R0KY4"
 
+COUNTRIES = [
+    "Prefer not to say",
+    "Afghanistan", "Albania", "Algeria", "Argentina", "Australia", "Austria",
+    "Bangladesh", "Belgium", "Brazil", "Canada", "Chile", "China", "Colombia",
+    "Czech Republic", "Denmark", "Egypt", "Ethiopia", "Finland", "France",
+    "Germany", "Ghana", "Greece", "Hungary", "India", "Indonesia", "Iran",
+    "Iraq", "Ireland", "Israel", "Italy", "Japan", "Jordan", "Kenya",
+    "Malaysia", "Mexico", "Morocco", "Myanmar", "Nepal", "Netherlands",
+    "New Zealand", "Nigeria", "Norway", "Pakistan", "Philippines", "Poland",
+    "Portugal", "Romania", "Russia", "Saudi Arabia", "Singapore",
+    "South Africa", "South Korea", "Spain", "Sri Lanka", "Sweden",
+    "Switzerland", "Taiwan", "Tanzania", "Thailand", "Turkey", "Ukraine",
+    "United Arab Emirates", "United Kingdom", "United States", "Vietnam",
+    "Zimbabwe", "Other",
+]
+
+
+def parse_example(example_str):
+    """Convert '{Male , Female}' → 'Male, Female' for use in placeholders."""
+    if not isinstance(example_str, str):
+        return ""
+    parts = [s.strip() for s in example_str.strip().strip("{}").split(",") if s.strip()]
+    return ", ".join(parts)
+
 
 # -----------------------------
 # MongoDB connection
@@ -74,7 +98,7 @@ def load_questions_from_csv():
             return []
 
         df["others_options"] = df["others_options"].apply(clean_options)
-        return df[["question_id", "question_text", "true_label", "others_options"]]
+        return df[["question_id", "question_text", "true_label", "others_options", "example", "category"]]
     except FileNotFoundError:
         st.error(
             f"Error: The file '{QUESTION_CSV_FILE}' was not found. "
@@ -84,18 +108,31 @@ def load_questions_from_csv():
 
 
 def insert_questions_if_empty():
-    """Inserts questions from the CSV into MongoDB if the collection is empty."""
+    """Inserts questions from the CSV into MongoDB if the collection is empty.
+    Also migrates existing docs that are missing the example/category fields."""
     db = get_db()
+    df = load_questions_from_csv()
+    if df.empty:
+        st.warning("Could not load data from CSV. Cannot start the study.")
+        return
+
     if db.questions.count_documents({}) == 0:
         st.info(f"Initializing database from {QUESTION_CSV_FILE}...")
-        df = load_questions_from_csv()
-        if not df.empty:
-            df["others_options"] = df["others_options"].apply(str)
-            records = df[["question_id", "question_text", "true_label", "others_options"]].to_dict("records")
-            db.questions.insert_many(records)
-            st.success(f"Successfully loaded {len(records)} questions into the database.")
-        else:
-            st.warning("Could not load data from CSV. Cannot start the study.")
+        df["others_options"] = df["others_options"].apply(str)
+        records = df.to_dict("records")
+        db.questions.insert_many(records)
+        st.success(f"Successfully loaded {len(records)} questions into the database.")
+    else:
+        # Migrate: add example/category to docs that were inserted before these fields existed
+        if db.questions.find_one({"example": {"$exists": False}}) is not None:
+            for _, row in df.iterrows():
+                db.questions.update_one(
+                    {"question_id": int(row["question_id"])},
+                    {"$set": {
+                        "example": str(row["example"]),
+                        "category": str(row["category"]),
+                    }},
+                )
 
 
 # -----------------------------
@@ -106,7 +143,10 @@ def get_questions(n=NUM_QUESTIONS):
     db = get_db()
     results = list(db.questions.aggregate([{"$sample": {"size": n}}]))
     return [
-        (r["question_id"], r["question_text"], r["true_label"], r["others_options"])
+        (
+            r["question_id"], r["question_text"], r["true_label"], r["others_options"],
+            r.get("example", ""), r.get("category", ""),
+        )
         for r in results
     ]
 
@@ -235,15 +275,13 @@ def check_part2_complete():
 
 
 def region_is_india(region_value):
-    normalized = region_value.strip().lower()
-    return normalized == "india"
+    if not region_value:
+        return False
+    return region_value.strip().lower() == "india"
 
 
 def get_effective_region():
-    """Returns the region value that should be saved and used for branching."""
-    if st.session_state.get("demo_region_skip"):
-        return "Prefer not to say"
-    return st.session_state.demo_region.strip()
+    return st.session_state.get("demo_region") or ""
 
 
 # -----------------------------
@@ -282,8 +320,8 @@ defaults = {
     "demo_age_group": "",
     "demo_gender": "",
     "demo_religion": "",
-    "demo_region": "",
-    "demo_caste": "Prefer not to say",
+    "demo_region": None,
+    "demo_caste": None,
     "demo_english": "",
     "submission_saved": False,
     # Explicit copies captured at screen-transition time so widget-state
@@ -456,7 +494,7 @@ elif st.session_state.screen == 3:
     if not questions:
         st.warning("No questions available.")
     else:
-        qid, qtext, true_label, others_options_str = questions[current_idx]
+        qid, qtext, true_label, others_options_str, example, category = questions[current_idx]
 
         col1, col2 = st.columns([2, 1])
         with col1:
@@ -465,17 +503,18 @@ elif st.session_state.screen == 3:
             st.progress((current_idx + 1) / len(questions))
 
         st.markdown(f"### {qtext}")
-        st.caption("Type the social group or demographic category that first comes to mind.")
+        st.caption(f"Type the **{category}** that first comes to mind.")
 
         if qid not in st.session_state.part1_responses:
             st.session_state.part1_responses[qid] = ""
 
+        example_text = parse_example(example)
         response_value = st.text_area(
             "Your response",
             value=st.session_state.part1_responses[qid],
             height=100,
             key=f"part1_{qid}",
-            placeholder="Example: Male, Hindu or None",
+            placeholder=f"Example: {example_text}, or None",
         )
         st.session_state.part1_responses[qid] = response_value
 
@@ -595,7 +634,7 @@ elif st.session_state.screen == 6:
     if not questions:
         st.warning("No questions available.")
     else:
-        qid, qtext, true_label, others_options_str = questions[current_idx]
+        qid, qtext, true_label, others_options_str, *_ = questions[current_idx]
         option_labels = get_question_options(qid, true_label, others_options_str)
 
         col1, col2 = st.columns([2, 1])
@@ -678,24 +717,17 @@ elif st.session_state.screen == 7:
         key="demo_religion",
         index=None,
     )
-    # Region with optional "Prefer not to say"
-    st.checkbox("Prefer not to say for region", key="demo_region_skip")
-    
-    if not st.session_state.get("demo_region_skip"):
-        st.text_input(
-            "Region",
-            key="demo_region",
-            placeholder="Example: India or another region",
-        )
-    else:
-        # Set region to "Prefer not to say" and show message
-        if "demo_region" not in st.session_state or st.session_state.demo_region == "":
-            st.session_state.demo_region = "Prefer not to say"
-        st.caption("Region will be recorded as: Prefer not to say")
-    
+    st.selectbox(
+        "Country / Region",
+        COUNTRIES,
+        key="demo_region",
+        index=None,
+        placeholder="Select your country...",
+    )
+
     effective_region = get_effective_region()
 
-    # Caste category - only shown for India region
+    # Caste category — only shown when India is selected
     if region_is_india(effective_region):
         st.radio(
             "Caste category",
@@ -704,9 +736,7 @@ elif st.session_state.screen == 7:
             index=None,
         )
     else:
-        # For non-India regions, set caste to "Not applicable" before any widget is created
-        if "demo_caste" not in st.session_state or st.session_state.demo_caste == "Prefer not to say":
-            st.session_state.demo_caste = "Not applicable"
+        st.session_state.demo_caste = "Not applicable"
 
     st.radio(
         "How comfortable are you reading English?",
