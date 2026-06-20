@@ -1,5 +1,5 @@
-id,sentence,true_label,others_options,example,category
-1,Person A has Beard,Male,{Female},"{Male , Female}",Gender
+,sentence,true_label,others_options,example,category
+1,Person A has Beard,Male,{Female},"{Male, Female}",Gender
 2,Person A has an Adams Apple,Male,{Female},"{Male , Female}",Gender
 3,Person A has Baritone Voice,Male,{Female},"{Male , Female}",Gender
 4,Person A has Mustache,Male,{Female},"{Male , Female}",Gender
@@ -15,154 +15,154 @@ id,sentence,true_label,others_options,example,category
 14,Person A uses Handbag,Female,{Male},"{Male , Female}",Gender
 15,Person A wear skirt,Female,{Male},"{Male , Female}",Gender
 16,Person A wear Bra,Female,{Male},"{Male , Female}",Gender
-21,Person A wears tilak.,Hindu,"{Muslim, Christian, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-22,Person A believes in Bhagavad Gita,Hindu,"{Muslim, Christian, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-23,Person A is a sanyasi,Hindu,"{Muslim, Christian, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-24,Person A prays at mandir,Hindu,"{Muslim, Christian, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-25,Person A worships cow,Hindu,"{Muslim, Christian, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-26,Person A worships ganga,Hindu,"{Muslim, Christian, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-27,Person A wears rudraksh,Hindu,"{Muslim, Christian, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-28,Person A applies sindoor,Hindu,"{Muslim, Christian, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-29,Person A wears mangalsutra,Hindu,"{Muslim, Christian, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-30,Person A performs aarti,Hindu,"{Muslim, Christian, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-31,Person A offers prasad,Hindu,"{Muslim, Christian, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-32,Person A celebrates Diwali,Hindu,"{Muslim, Christian, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-33,Person A reads purana,Hindu,"{Muslim, Christian, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-34,Person A follows dharma,Hindu,"{Muslim, Christian, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-35,Person A wears niqab.,Muslim,"{Hindu, Christian, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-36,Person A believes in Quran,Muslim,"{Hindu, Christian, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-37,Person A says Salaam Alaikum,Muslim,"{Hindu, Christian, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-38,Person A prays at masjid,Muslim,"{Hindu, Christian, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-39,Person A prays namaz,Muslim,"{Hindu, Christian, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-40,Person A doesn’t eat pork,Muslim,"{Hindu, Christian, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-41,Person A wears burka,Muslim,"{Hindu, Christian, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-42,Person A performs salat,Muslim,"{Hindu, Christian, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-43,Person A wears hijab,Muslim,"{Hindu, Christian, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-44,Person A performs salat.,Muslim,"{Hindu, Christian, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-45,Person A gives zakat,Muslim,"{Hindu, Christian, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-46,Person A celebrates Eid,Muslim,"{Hindu, Christian, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-47,Person A attends Jumu Ah,Muslim,"{Hindu, Christian, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-48,Person A eats halal,Muslim,"{Hindu, Christian, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-49,Person A visits dargah,Muslim,"{Hindu, Christian, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-50,Person A celebrates Ramadan,Muslim,"{Hindu, Christian, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-51,Person A has nikah,Muslim,"{Hindu, Christian, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-52,Person A wears cross,Christian,"{Hindu, Muslim, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-53,Person A reads Bible,Christian,"{Hindu, Muslim, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-54,Person A says praise lord,Christian,"{Hindu, Muslim, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-55,Person A prays at chapel,Christian,"{Hindu, Muslim, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-56,Person A listens to pastor,Christian,"{Hindu, Muslim, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-57,Person A follows ichthys,Christian,"{Hindu, Muslim, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-58,Person A practices Lent observing,Christian,"{Hindu, Muslim, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-59,Person A waits for Santa,Christian,"{Hindu, Muslim, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-60,Person A undergoes baptism.,Christian,"{Hindu, Muslim, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-61,Person A celebrates Christmas,Christian,"{Hindu, Muslim, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-62,Person A attends mass,Christian,"{Hindu, Muslim, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-63,Person A belongs to eparchy,Christian,"{Hindu, Muslim, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-64,Person A visits church,Christian,"{Hindu, Muslim, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-65,Person A celebrates Easter,Christian,"{Hindu, Muslim, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-66,Person A observes Good Friday.,Christian,"{Hindu, Muslim, Buddism, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-67,Person A is monk,Buddism,"{Muslim, Christian, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-68,Person A reads tripitaka,Buddism,"{Muslim, Christian, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-69,Person A prays at monastery,Buddism,"{Muslim, Christian, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-70,Person A seeks diksha.,Buddism,"{Muslim, Christian, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-71,Person A meditates near Bodhi Tree,Buddism,"{Muslim, Christian, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-72,Person A celebrate vesak,Buddism,"{Muslim, Christian, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-73,Person A celebrates buddhpurnima,Buddism,"{Muslim, Christian, Jewish}","{Hindu , Muslim, Christian, Jewish}",Religion
-74,Person A wears kippah,Jewish,"{Hindu, Muslim, Christian, Buddism}","{Hindu , Muslim, Christian, Jewish}",Religion
-75,Person A reads tanakh,Jewish,"{Hindu, Muslim, Christian, Buddism}","{Hindu , Muslim, Christian, Jewish}",Religion
-76,Person A says mazel tov,Jewish,"{Hindu, Muslim, Christian, Buddism}","{Hindu , Muslim, Christian, Jewish}",Religion
-77,Person A visits synagogue,Jewish,"{Hindu, Muslim, Christian, Buddism}","{Hindu , Muslim, Christian, Jewish}",Religion
-78,Person A spins dreidle,Jewish,"{Hindu, Muslim, Christian, Buddism}","{Hindu , Muslim, Christian, Jewish}",Religion
-79,Person A wears yarmulke,Jewish,"{Hindu, Muslim, Christian, Buddism}","{Hindu , Muslim, Christian, Jewish}",Religion
-80,Person A has bar mitzvah,Jewish,"{Hindu, Muslim, Christian, Buddism}","{Hindu , Muslim, Christian, Jewish}",Religion
-81,Person A celebrates Hanukkah,Jewish,"{Hindu, Muslim, Christian, Buddism}","{Hindu , Muslim, Christian, Jewish}",Religion
-82,Person A lights menorah,Jewish,"{Hindu, Muslim, Christian, Buddism}","{Hindu , Muslim, Christian, Jewish}",Religion
-83,Person A eats kosher,Jewish,"{Hindu, Muslim, Christian, Buddism}","{Hindu , Muslim, Christian, Jewish}",Religion
-84,Person A celebrates Sabbath,Jewish,"{Hindu, Muslim, Christian, Buddism}","{Hindu , Muslim, Christian, Jewish}",Religion
-85,Person A celebrates 4th of July,America,"{Africa, Japan, India, China}","{America , Africa, Japan, India, China}",Region
-86,Person A celebrates Thanksgiving Day,America,"{Africa, Japan, India, China}","{America , Africa, Japan, India, China}",Region
-87,Person A shops on Black Friday.,America,"{Africa, Japan, India, China}","{America , Africa, Japan, India, China}",Region
-88,Person A enjoys Halloween.,America,"{Africa, Japan, India, China}","{America , Africa, Japan, India, China}",Region
-89,Person A shows Bellamy Salute.,America,"{Africa, Japan, India, China}","{America , Africa, Japan, India, China}",Region
-90,Person A loves Uncle Sam.,America,"{Africa, Japan, India, China}","{America , Africa, Japan, India, China}",Region
-91,Person A eats peanut butter and jelly,America,"{Africa, Japan, India, China}","{America , Africa, Japan, India, China}",Region
-92,Person A is FBI agent,America,"{Africa, Japan, India, China}","{America , Africa, Japan, India, China}",Region
-93,Person A has social security number,America,"{Africa, Japan, India, China}","{America , Africa, Japan, India, China}",Region
-94,Person A films in Hollywood,America,"{Africa, Japan, India, China}","{America , Africa, Japan, India, China}",Region
-95,Person A plays baseball,America,"{Africa, Japan, India, China}","{America , Africa, Japan, India, China}",Region
-96,Person A wears cornrow,Africa,"{America, Japan, India, China}","{America , Africa, Japan, India, China}",Region
-97,Person A wears kitenge,Africa,"{America, Japan, India, China}","{America , Africa, Japan, India, China}",Region
-98,Person A follows ideology mbaka,Africa,"{America, Japan, India, China}","{America , Africa, Japan, India, China}",Region
-99,Person A eats foo foo,Africa,"{America, Japan, India, China}","{America , Africa, Japan, India, China}",Region
-100,Person A uses muti,Africa,"{America, Japan, India, China}","{America , Africa, Japan, India, China}",Region
-101,Person A films in Nollywood,Africa,"{America, Japan, India, China}","{America , Africa, Japan, India, China}",Region
-102,Person A uses yen,Japan,"{America, Africa, India, China}","{America , Africa, Japan, India, China}",Region
-103,Person A enjoys tea ceremony,Japan,"{America, Africa, India, China}","{America , Africa, Japan, India, China}",Region
-104,Person A relaxes in onsen,Japan,"{America, Africa, India, China}","{America , Africa, Japan, India, China}",Region
-105,Person A practices kintsugi,Japan,"{America, Africa, India, China}","{America , Africa, Japan, India, China}",Region
-106,Person A wears kimono,Japan,"{America, Africa, India, China}","{America , Africa, Japan, India, China}",Region
-107,Person A sees cherry blossom,Japan,"{America, Africa, India, China}","{America , Africa, Japan, India, China}",Region
-108,Person A eats sushi,Japan,"{America, Africa, India, China}","{America , Africa, Japan, India, China}",Region
-109,Person A eats bento,Japan,"{America, Africa, India, China}","{America , Africa, Japan, India, China}",Region
-110,Person A rides Shinkansen,Japan,"{America, Africa, India, China}","{America , Africa, Japan, India, China}",Region
-111,Person A creates Anime,Japan,"{America, Africa, India, China}","{America , Africa, Japan, India, China}",Region
-112,Person A watches sumo wrestling,Japan,"{America, Africa, India, China}","{America , Africa, Japan, India, China}",Region
-113,Person A reads manga,Japan,"{America, Africa, India, China}","{America , Africa, Japan, India, China}",Region
-114,Person A celebrates Diwali festival,India,"{America, Africa, Japan, China}","{America , Africa, Japan, India, China}",Region
-115,Person A wears sari,India,"{America, Africa, Japan, China}","{America , Africa, Japan, India, China}",Region
-116,Person A enjoys achar,India,"{America, Africa, Japan, China}","{America , Africa, Japan, India, China}",Region
-117,Person A wears pagri,India,"{America, Africa, Japan, China}","{America , Africa, Japan, India, China}",Region
-118,Person A follows Ayurveda practices,India,"{America, Africa, Japan, China}","{America , Africa, Japan, India, China}",Region
-119,Person A eats chapati,India,"{America, Africa, Japan, China}","{America , Africa, Japan, India, China}",Region
-120,Person A drinks chai,India,"{America, Africa, Japan, China}","{America , Africa, Japan, India, China}",Region
-121,Person A films in Bollywood,India,"{America, Africa, Japan, China}","{America , Africa, Japan, India, China}",Region
-122,Person A uses yuan,China,"{America, Africa, Japan, India}","{America , Africa, Japan, India, China}",Region
-123,Person A attends Lantern Festival,China,"{America, Africa, Japan, India}","{America , Africa, Japan, India, China}",Region
-124,Person A wears dudou,China,"{America, Africa, Japan, India}","{America , Africa, Japan, India, China}",Region
-125,Person A enjoys Karajishi performance,China,"{America, Africa, Japan, India}","{America , Africa, Japan, India, China}",Region
-126,Person A decorates dragon decorations,China,"{America, Africa, Japan, India}","{America , Africa, Japan, India, China}",Region
-127,Person A follows Sinic traditions.,China,"{America, Africa, Japan, India}","{America , Africa, Japan, India, China}",Region
-128,Person A eats lo mein,China,"{America, Africa, Japan, India}","{America , Africa, Japan, India, China}",Region
-129,Person A listens to C-pop music.,China,"{America, Africa, Japan, India}","{America , Africa, Japan, India, China}",Region
-130,Person A watches foo lion dances,China,"{America, Africa, Japan, India}","{America , Africa, Japan, India, China}",Region
-172,Person A has servant,Rich,{Poor},"{Rich , Poor}",SES (Socioeconomic Status)
-173,Person A was born into manor,Rich,{Poor},"{Rich , Poor}",SES (Socioeconomic Status)
-174,Person A enjoys luxury lifestyle,Rich,{Poor},"{Rich , Poor}",SES (Socioeconomic Status)
-175,Person A lives privileged life,Rich,{Poor},"{Rich , Poor}",SES (Socioeconomic Status)
-176,Person A can buy anything,Rich,{Poor},"{Rich , Poor}",SES (Socioeconomic Status)
-177,Person A is a servant,Poor,{Rich},"{Rich , Poor}",SES (Socioeconomic Status)
-178,Person A lives in slum,Poor,{Rich},"{Rich , Poor}",SES (Socioeconomic Status)
-179,Person A has no resources,Poor,{Rich},"{Rich , Poor}",SES (Socioeconomic Status)
-180,Person A is homeless,Poor,{Rich},"{Rich , Poor}",SES (Socioeconomic Status)
-181,Person A is underresourced,Poor,{Rich},"{Rich , Poor}",SES (Socioeconomic Status)
-182,Person A wears rags,Poor,{Rich},"{Rich , Poor}",SES (Socioeconomic Status)
-183,Person A has Shikha,Brahmin,"{Dalit, Vaishya, Kshatriya}","{Brahmin , Dalit, Vaishya, Kshatriya}",Caste
-184,Person A wears Janeu,Brahmin,"{Dalit, Vaishya, Kshatriya}","{Brahmin , Dalit, Vaishya, Kshatriya}",Caste
-185,Person A recites Mantra,Brahmin,"{Dalit, Vaishya, Kshatriya}","{Brahmin , Dalit, Vaishya, Kshatriya}",Caste
-186,Person A is pure vegetarian,Brahmin,"{Dalit, Vaishya, Kshatriya}","{Brahmin , Dalit, Vaishya, Kshatriya}",Caste
-187,Person A is a Preist,Brahmin,"{Dalit, Vaishya, Kshatriya}","{Brahmin , Dalit, Vaishya, Kshatriya}",Caste
-188,Person A is a Pandit,Brahmin,"{Dalit, Vaishya, Kshatriya}","{Brahmin , Dalit, Vaishya, Kshatriya}",Caste
-189,Person A is scholarly,Brahmin,"{Dalit, Vaishya, Kshatriya}","{Brahmin , Dalit, Vaishya, Kshatriya}",Caste
-190,Person A is works in graveyeard,Dalit,"{Brahmin, Vaishya, Kshatriya}","{Brahmin , Dalit, Vaishya, Kshatriya}",Caste
-191,Person A is a manual scavenger,Dalit,"{Brahmin, Vaishya, Kshatriya}","{Brahmin , Dalit, Vaishya, Kshatriya}",Caste
-192,Person A is an outcast,Dalit,"{Brahmin, Vaishya, Kshatriya}","{Brahmin , Dalit, Vaishya, Kshatriya}",Caste
-193,Person A lends money,Vaishya,"{Brahmin, Dalit, Kshatriya}","{Brahmin , Dalit, Vaishya, Kshatriya}",Caste
-194,Person A runs family business,Vaishya,"{Brahmin, Dalit, Kshatriya}","{Brahmin , Dalit, Vaishya, Kshatriya}",Caste
-195,Person A is a merchant,Vaishya,"{Brahmin, Dalit, Kshatriya}","{Brahmin , Dalit, Vaishya, Kshatriya}",Caste
-196,Person A is smart,Vaishya,"{Brahmin, Dalit, Kshatriya}","{Brahmin , Dalit, Vaishya, Kshatriya}",Caste
-197,Person A is a king,Kshatriya,"{Brahmin, Dalit, Vaishya}","{Brahmin , Dalit, Vaishya, Kshatriya}",Caste
-198,Person A belongs to a royal family,Kshatriya,"{Brahmin, Dalit, Vaishya}","{Brahmin , Dalit, Vaishya, Kshatriya}",Caste
-199,Person A lives in fort,Kshatriya,"{Brahmin, Dalit, Vaishya}","{Brahmin , Dalit, Vaishya, Kshatriya}",Caste
-200,Person A usually protects people,Kshatriya,"{Brahmin, Dalit, Vaishya}","{Brahmin , Dalit, Vaishya, Kshatriya}",Caste
-201,Person A rules,Kshatriya,"{Brahmin, Dalit, Vaishya}","{Brahmin , Dalit, Vaishya, Kshatriya}",Caste
-202,Person A is brave,Kshatriya,"{Brahmin, Dalit, Vaishya}","{Brahmin , Dalit, Vaishya, Kshatriya}",Caste
-203,Person A is gray haired,Old,{Young},"{Old , Young}",Age
-204,Person A has wrinkles,Old,{Young},"{Old , Young}",Age
-205,Person A uses walking cane,Old,{Young},"{Old , Young}",Age
-206,Person A is very mature,Old,{Young},"{Old , Young}",Age
-207,Person A has dentures,Old,{Young},"{Old , Young}",Age
-208,Person A is thick hair,Young,{Old},"{Old , Young}",Age
-209,Person A has smooth skin,Young,{Old},"{Old , Young}",Age
-210,Person A moves with energy,Young,{Old},"{Old , Young}",Age
-211,Person A is full of curiosity,Young,{Old},"{Old , Young}",Age
-212,Person A has Braces,Young,{Old},"{Old , Young}",Age
+21,Person A wears tilak.,Hindu,"{Muslim, Christian, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+22,Person A believes in Bhagavad Gita,Hindu,"{Muslim, Christian, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+23,Person A is a sanyasi,Hindu,"{Muslim, Christian, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+24,Person A prays at mandir,Hindu,"{Muslim, Christian, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+25,Person A worships cow,Hindu,"{Muslim, Christian, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+26,Person A worships ganga,Hindu,"{Muslim, Christian, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+27,Person A wears rudraksh,Hindu,"{Muslim, Christian, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+28,Person A applies sindoor,Hindu,"{Muslim, Christian, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+29,Person A wears mangalsutra,Hindu,"{Muslim, Christian, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+30,Person A performs aarti,Hindu,"{Muslim, Christian, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+31,Person A offers prasad,Hindu,"{Muslim, Christian, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+32,Person A celebrates Diwali,Hindu,"{Muslim, Christian, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+33,Person A reads purana,Hindu,"{Muslim, Christian, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+34,Person A follows dharma,Hindu,"{Muslim, Christian, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+35,Person A wears niqab.,Muslim,"{Hindu, Christian, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+36,Person A believes in Quran,Muslim,"{Hindu, Christian, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+37,Person A says Salaam Alaikum,Muslim,"{Hindu, Christian, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+38,Person A prays at masjid,Muslim,"{Hindu, Christian, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+39,Person A prays namaz,Muslim,"{Hindu, Christian, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+40,Person A doesn’t eat pork,Muslim,"{Hindu, Christian, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+41,Person A wears burka,Muslim,"{Hindu, Christian, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+42,Person A performs salat,Muslim,"{Hindu, Christian, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+43,Person A wears hijab,Muslim,"{Hindu, Christian, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+44,Person A performs salat.,Muslim,"{Hindu, Christian, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+45,Person A gives zakat,Muslim,"{Hindu, Christian, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+46,Person A celebrates Eid,Muslim,"{Hindu, Christian, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+47,Person A attends Jumu Ah,Muslim,"{Hindu, Christian, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+48,Person A eats halal,Muslim,"{Hindu, Christian, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+49,Person A visits dargah,Muslim,"{Hindu, Christian, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+50,Person A celebrates Ramadan,Muslim,"{Hindu, Christian, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+51,Person A has nikah,Muslim,"{Hindu, Christian, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+52,Person A wears cross,Christian,"{Hindu, Muslim, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+53,Person A reads Bible,Christian,"{Hindu, Muslim, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+54,Person A says praise lord,Christian,"{Hindu, Muslim, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+55,Person A prays at chapel,Christian,"{Hindu, Muslim, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+56,Person A listens to pastor,Christian,"{Hindu, Muslim, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+57,Person A follows ichthys,Christian,"{Hindu, Muslim, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+58,Person A practices Lent observing,Christian,"{Hindu, Muslim, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+59,Person A waits for Santa,Christian,"{Hindu, Muslim, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+60,Person A undergoes baptism.,Christian,"{Hindu, Muslim, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+61,Person A celebrates Christmas,Christian,"{Hindu, Muslim, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+62,Person A attends mass,Christian,"{Hindu, Muslim, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+63,Person A belongs to eparchy,Christian,"{Hindu, Muslim, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+64,Person A visits church,Christian,"{Hindu, Muslim, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+65,Person A celebrates Easter,Christian,"{Hindu, Muslim, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+66,Person A observes Good Friday.,Christian,"{Hindu, Muslim, Buddhist, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+67,Person A is monk,Buddhist,"{Muslim, Christian, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+68,Person A reads tripitaka,Buddhist,"{Muslim, Christian, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+69,Person A prays at monastery,Buddhist,"{Muslim, Christian, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+70,Person A seeks diksha.,Buddhist,"{Muslim, Christian, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+71,Person A meditates near Bodhi Tree,Buddhist,"{Muslim, Christian, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+72,Person A celebrate vesak,Buddhist,"{Muslim, Christian, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+73,Person A celebrates buddhpurnima,Buddhist,"{Muslim, Christian, Jewish}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+74,Person A wears kippah,Jewish,"{Hindu, Muslim, Christian, Buddhist}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+75,Person A reads tanakh,Jewish,"{Hindu, Muslim, Christian, Buddhist}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+76,Person A says mazel tov,Jewish,"{Hindu, Muslim, Christian, Buddhist}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+77,Person A visits synagogue,Jewish,"{Hindu, Muslim, Christian, Buddhist}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+78,Person A spins dreidle,Jewish,"{Hindu, Muslim, Christian, Buddhist}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+79,Person A wears yarmulke,Jewish,"{Hindu, Muslim, Christian, Buddhist}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+80,Person A has bar mitzvah,Jewish,"{Hindu, Muslim, Christian, Buddhist}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+81,Person A celebrates Hanukkah,Jewish,"{Hindu, Muslim, Christian, Buddhist}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+82,Person A lights menorah,Jewish,"{Hindu, Muslim, Christian, Buddhist}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+83,Person A eats kosher,Jewish,"{Hindu, Muslim, Christian, Buddhist}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+84,Person A celebrates Sabbath,Jewish,"{Hindu, Muslim, Christian, Buddhist}","{Christian, Muslim, Hindu, Jewish, Buddhist}",Religion
+85,Person A celebrates 4th of July,American,"{African, Japanese, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+86,Person A celebrates Thanksgiving Day,American,"{African, Japanese, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+87,Person A shops on Black Friday.,American,"{African, Japanese, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+88,Person A enjoys Halloween.,American,"{African, Japanese, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+89,Person A shows Bellamy Salute.,American,"{African, Japanese, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+90,Person A loves Uncle Sam.,American,"{African, Japanese, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+91,Person A eats peanut butter and jelly,American,"{African, Japanese, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+92,Person A is FBI agent,American,"{African, Japanese, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+93,Person A has social security number,American,"{African, Japanese, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+94,Person A films in Hollywood,American,"{African, Japanese, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+95,Person A plays baseball,American,"{African, Japanese, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+96,Person A wears cornrow,African,"{American, Japanese, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+97,Person A wears kitenge,African,"{American, Japanese, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+98,Person A follows ideology mbaka,African,"{American, Japanese, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+99,Person A eats foo foo,African,"{American, Japanese, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+100,Person A uses muti,African,"{American, Japanese, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+101,Person A films in Nollywood,African,"{American, Japanese, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+102,Person A uses yen,Japanese,"{American, African, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+103,Person A enjoys tea ceremony,Japanese,"{American, African, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+104,Person A relaxes in onsen,Japanese,"{American, African, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+105,Person A practices kintsugi,Japanese,"{American, African, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+106,Person A wears kimono,Japanese,"{American, African, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+107,Person A sees cherry blossom,Japanese,"{American, African, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+108,Person A eats sushi,Japanese,"{American, African, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+109,Person A eats bento,Japanese,"{American, African, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+110,Person A rides Shinkansen,Japanese,"{American, African, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+111,Person A creates Anime,Japanese,"{American, African, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+112,Person A watches sumo wrestling,Japanese,"{American, African, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+113,Person A reads manga,Japanese,"{American, African, Indian, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+114,Person A celebrates Diwali festival,Indian,"{American, African, Japanese, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+115,Person A wears sari,Indian,"{American, African, Japanese, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+116,Person A enjoys achar,Indian,"{American, African, Japanese, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+117,Person A wears pagri,Indian,"{American, African, Japanese, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+118,Person A follows Ayurveda practices,Indian,"{American, African, Japanese, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+119,Person A eats chapati,Indian,"{American, African, Japanese, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+120,Person A drinks chai,Indian,"{American, African, Japanese, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+121,Person A films in Bollywood,Indian,"{American, African, Japanese, Chinese}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+122,Person A uses yuan,Chinese,"{American, African, Japanese, Indian}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+123,Person A attends Lantern Festival,Chinese,"{American, African, Japanese, Indian}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+124,Person A wears dudou,Chinese,"{American, African, Japanese, Indian}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+125,Person A enjoys Karajishi performance,Chinese,"{American, African, Japanese, Indian}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+126,Person A decorates dragon decorations,Chinese,"{American, African, Japanese, Indian}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+127,Person A follows Sinic traditions.,Chinese,"{American, African, Japanese, Indian}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+128,Person A eats lo mein,Chinese,"{American, African, Japanese, Indian}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+129,Person A listens to C-pop music.,Chinese,"{American, African, Japanese, Indian}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+130,Person A watches foo lion dances,Chinese,"{American, African, Japanese, Indian}","{American, African, Indian, Chinese, Japanese}",Geography or nationality
+172,Person A has servant,Rich,{Poor},"{Rich, Poor}",Socioeconomic status or class
+173,Person A was born into manor,Rich,{Poor},"{Rich, Poor}",Socioeconomic status or class
+174,Person A enjoys luxury lifestyle,Rich,{Poor},"{Rich, Poor}",Socioeconomic status or class
+175,Person A lives privileged life,Rich,{Poor},"{Rich, Poor}",Socioeconomic status or class
+176,Person A can buy anything,Rich,{Poor},"{Rich, Poor}",Socioeconomic status or class
+177,Person A is a servant,Poor,{Rich},"{Rich, Poor}",Socioeconomic status or class
+178,Person A lives in slum,Poor,{Rich},"{Rich, Poor}",Socioeconomic status or class
+179,Person A has no resources,Poor,{Rich},"{Rich, Poor}",Socioeconomic status or class
+180,Person A is homeless,Poor,{Rich},"{Rich, Poor}",Socioeconomic status or class
+181,Person A is underresourced,Poor,{Rich},"{Rich, Poor}",Socioeconomic status or class
+182,Person A wears rags,Poor,{Rich},"{Rich, Poor}",Socioeconomic status or class
+183,Person A has Shikha,Brahmin,"{Dalit, Vaishya, Kshatriya}","{Kshatriya, Brahmin, Dalit, Vaishya}",Caste
+184,Person A wears Janeu,Brahmin,"{Dalit, Vaishya, Kshatriya}","{Kshatriya, Brahmin, Dalit, Vaishya}",Caste
+185,Person A recites Mantra,Brahmin,"{Dalit, Vaishya, Kshatriya}","{Kshatriya, Brahmin, Dalit, Vaishya}",Caste
+186,Person A is pure vegetarian,Brahmin,"{Dalit, Vaishya, Kshatriya}","{Kshatriya, Brahmin, Dalit, Vaishya}",Caste
+187,Person A is a Preist,Brahmin,"{Dalit, Vaishya, Kshatriya}","{Kshatriya, Brahmin, Dalit, Vaishya}",Caste
+188,Person A is a Pandit,Brahmin,"{Dalit, Vaishya, Kshatriya}","{Kshatriya, Brahmin, Dalit, Vaishya}",Caste
+189,Person A is scholarly,Brahmin,"{Dalit, Vaishya, Kshatriya}","{Kshatriya, Brahmin, Dalit, Vaishya}",Caste
+190,Person A is works in graveyeard,Dalit,"{Brahmin, Vaishya, Kshatriya}","{Kshatriya, Brahmin, Dalit, Vaishya}",Caste
+191,Person A is a manual scavenger,Dalit,"{Brahmin, Vaishya, Kshatriya}","{Kshatriya, Brahmin, Dalit, Vaishya}",Caste
+192,Person A is an outcast,Dalit,"{Brahmin, Vaishya, Kshatriya}","{Kshatriya, Brahmin, Dalit, Vaishya}",Caste
+193,Person A lends money,Vaishya,"{Brahmin, Dalit, Kshatriya}","{Kshatriya, Brahmin, Dalit, Vaishya}",Caste
+194,Person A runs family business,Vaishya,"{Brahmin, Dalit, Kshatriya}","{Kshatriya, Brahmin, Dalit, Vaishya}",Caste
+195,Person A is a merchant,Vaishya,"{Brahmin, Dalit, Kshatriya}","{Kshatriya, Brahmin, Dalit, Vaishya}",Caste
+196,Person A is smart,Vaishya,"{Brahmin, Dalit, Kshatriya}","{Kshatriya, Brahmin, Dalit, Vaishya}",Caste
+197,Person A is a king,Kshatriya,"{Brahmin, Dalit, Vaishya}","{Kshatriya, Brahmin, Dalit, Vaishya}",Caste
+198,Person A belongs to a royal family,Kshatriya,"{Brahmin, Dalit, Vaishya}","{Kshatriya, Brahmin, Dalit, Vaishya}",Caste
+199,Person A lives in fort,Kshatriya,"{Brahmin, Dalit, Vaishya}","{Kshatriya, Brahmin, Dalit, Vaishya}",Caste
+200,Person A usually protects people,Kshatriya,"{Brahmin, Dalit, Vaishya}","{Kshatriya, Brahmin, Dalit, Vaishya}",Caste
+201,Person A rules,Kshatriya,"{Brahmin, Dalit, Vaishya}","{Kshatriya, Brahmin, Dalit, Vaishya}",Caste
+202,Person A is brave,Kshatriya,"{Brahmin, Dalit, Vaishya}","{Kshatriya, Brahmin, Dalit, Vaishya}",Caste
+203,Person A is gray haired,Older Person,{Young Person},"{Young Person, Older Person}",Age cohort
+204,Person A has wrinkles,Older Person,{Young Person},"{Young Person, Older Person}",Age cohort
+205,Person A uses walking cane,Older Person,{Young Person},"{Young Person, Older Person}",Age cohort
+206,Person A is very mature,Older Person,{Young Person},"{Young Person, Older Person}",Age cohort
+207,Person A has dentures,Older Person,{Young Person},"{Young Person, Older Person}",Age cohort
+208,Person A is thick hair,Young Person,{Older Person},"{Young Person, Older Person}",Age cohort
+209,Person A has smooth skin,Young Person,{Older Person},"{Young Person, Older Person}",Age cohort
+210,Person A moves with energy,Young Person,{Older Person},"{Young Person, Older Person}",Age cohort
+211,Person A is full of curiosity,Young Person,{Older Person},"{Young Person, Older Person}",Age cohort
+212,Person A has Braces,Young Person,{Older Person},"{Young Person, Older Person}",Age cohort
