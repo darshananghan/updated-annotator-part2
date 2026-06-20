@@ -16,7 +16,7 @@ DEFAULT_PROLIFIC_ID = ""
 NUM_QUESTIONS = 20
 TIMER_DURATION_SECONDS = 20
 # Replace YOUR_CODE with the completion code from your Prolific study dashboard
-PROLIFIC_COMPLETION_URL = "https://app.prolific.com/submissions/complete?cc=CD9R0KY4"
+PROLIFIC_COMPLETION_URL = "https://app.prolific.com/submissions/complete?cc=C7XSKZ91"
 
 
 COUNTRIES = [
