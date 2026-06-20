@@ -98,7 +98,7 @@ def load_questions_from_csv():
             return []
 
         df["others_options"] = df["others_options"].apply(clean_options)
-        return df[["question_id", "question_text", "true_label", "others_options"]]
+        return df[["question_id", "question_text", "true_label", "others_options","example","category"]]
     except FileNotFoundError:
         st.error(
             f"Error: The file '{QUESTION_CSV_FILE}' was not found. "
@@ -123,7 +123,14 @@ def _ensure_questions_loaded():
         df = load_questions_from_csv()
         if not df.empty:
             df["others_options"] = df["others_options"].apply(str)
-            records = df[["question_id", "question_text", "true_label", "others_options"]].to_dict("records")
+            records = df[
+                        ["question_id",
+                        "question_text",
+                        "true_label",
+                        "others_options",
+                        "example",
+                        "category"]
+                    ].to_dict("records")
             db.questions.insert_many(records)
     return True
 
