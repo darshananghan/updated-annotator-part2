@@ -18,6 +18,7 @@ TIMER_DURATION_SECONDS = 2
 # Replace YOUR_CODE with the completion code from your Prolific study dashboard
 PROLIFIC_COMPLETION_URL = "https://app.prolific.com/submissions/complete?cc=CD9R0KY4"
 
+
 COUNTRIES = [
     "Prefer not to say",
     "Afghanistan", "Albania", "Algeria", "Argentina", "Australia", "Austria",
@@ -334,6 +335,7 @@ defaults = {
     "_saved_prolific_id": _pid_from_url or DEFAULT_PROLIFIC_ID,
     "_saved_consent": False,
     "_saved_confidence": "",
+    "phase2_timer_start": None,
 }
 
 for key, value in defaults.items():
@@ -510,9 +512,11 @@ elif st.session_state.screen == 3:
             st.progress((current_idx + 1) / len(questions))
 
         st.markdown(f"### {qtext}")
+        display_category = "Age" if category == "Age cohort" else category
+
         st.markdown(
             f'Type the <span style="color:red; font-size:1.2em; font-weight:bold;">'
-            f'{category}</span> that first comes to mind.',
+            f'{display_category}</span> that first comes to mind.',
             unsafe_allow_html=True,
         )
 
@@ -583,6 +587,7 @@ elif st.session_state.screen == 4:
             else:
                 st.session_state._saved_confidence = st.session_state.confidence_level
                 st.session_state.screen = 5
+                st.session_state.phase2_timer_start = None
                 st.session_state.current_q_idx = 0
                 st.rerun()
 
@@ -592,6 +597,23 @@ elif st.session_state.screen == 4:
 # -----------------------------
 elif st.session_state.screen == 5:
     st.title("Phase 2 - Choose the Answer")
+
+    if st.session_state.phase2_timer_start is None:
+        st.session_state.phase2_timer_start = time.time()
+
+    elapsed_time = time.time() - st.session_state.phase2_timer_start
+    time_remaining = max(0, 10 - int(elapsed_time))
+    timer_expired = time_remaining == 0
+
+    timer_placeholder = st.empty()
+
+    if timer_expired:
+        timer_placeholder.success("You can now begin Phase 2.")
+    else:
+        timer_placeholder.warning(
+            f"Please take time to read the instructions. Phase 2 starts in {time_remaining} seconds."
+        )
+
     st.markdown(
         """
         In this task, you will see the same statements again. This time each one comes
@@ -604,31 +626,41 @@ elif st.session_state.screen == 5:
 
         You will be given 3 options for each statement:
 
-        - Two demographic labels: These represent the two possible demographics that
-          Person A could belong to.
-        - Don't know / Neutral: Choose this if you feel that the statement is
-          unknown, ambiguous, or you do not wish to assign a demographic.
+        - Two demographic labels
+        - Don't know / Neutral
 
         **Guidelines**
 
-        - Choose based on your opinion: Select the label that best represents the
-          demographic you infer from the statement.
-        - Use Don't know / Neutral when unsure: If you are confused, feel the
-          statement is ambiguous, or cannot confidently assign one of the two labels,
-          select `Don't know / Neutral`.
+        - Choose based on your opinion.
+        - Use Don't know / Neutral when unsure.
         """
     )
 
     col1, col2 = st.columns(2)
+
     with col1:
         if st.button("Back", use_container_width=True):
             st.session_state.screen = 4
+            st.session_state.phase2_timer_start = None
             st.rerun()
+
     with col2:
-        if st.button("Begin Phase 2", type="primary", use_container_width=True):
-            st.session_state.screen = 6
-            st.session_state.current_q_idx = 0
-            st.rerun()
+        st.button(
+            "Begin Phase 2",
+            type="primary",
+            use_container_width=True,
+            disabled=not timer_expired,
+            on_click=lambda: st.session_state.update(
+                {
+                    "screen": 6,
+                    "current_q_idx": 0,
+                }
+            ),
+        )
+
+    if not timer_expired:
+        time.sleep(1)
+        st.rerun()
 
 
 # -----------------------------
@@ -726,12 +758,28 @@ elif st.session_state.screen == 7:
         key="demo_gender",
         index=None,
     )
-    st.radio(
+    religion = st.radio(
         "Religion you are most familiar with",
-        ["Hindu", "Muslim", "Christian", "Sikh", "Buddhist", "Jain", "Other", "Prefer not to say"],
+        [
+            "Hindu",
+            "Muslim",
+            "Christian",
+            "Sikh",
+            "Buddhist",
+            "Jain",
+            "Other",
+            "Prefer not to say",
+        ],
         key="demo_religion",
         index=None,
     )
+
+    if religion == "Other":
+        st.text_input(
+            "Please specify your religion",
+            key="demo_religion_other",
+            placeholder="Enter your religion"
+        )
     st.selectbox(
         "Country / Region",
         COUNTRIES,
