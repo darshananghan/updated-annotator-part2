@@ -225,6 +225,11 @@ def save_study_submission():
     confidence = st.session_state.get("_saved_confidence", "")
 
     db = get_db()
+    
+    religion_value = st.session_state.get("demo_religion", "")
+
+    if religion_value == "Other":
+        religion_value = st.session_state.get("demo_religion_other", "").strip()
 
     db.study_sessions.insert_one({
         "session_id": st.session_state.session_id,
@@ -463,29 +468,41 @@ elif st.session_state.screen == 2:
         - Geography or nationality: American, African, Indian, Chinese, Japanese
         - Socioeconomic status or class: Rich, Poor
         - Caste: Kshatriya, Brahmin, Dalit, Vaishya
-
+        
         **Guidelines for completion**
 
-        1. Trust your first instinct: Type the first specific group that comes to mind.
-        2. Handling ambiguity: If a statement is completely neutral and does not suggest
-           any specific social group, enter `None`. Use this sparingly.
-        3. Multiple associations: If a statement strongly suggests multiple groups,
-           prioritize the most dominant one, or format your response separated by a
-           comma, for example: `Male, Hindu`.
-        """
+        """)
+    
+
+        
+        
+    guide_1 = st.checkbox(
+        "1. Trust your first instinct: Type the first specific group that comes to mind."
     )
+    guide_2 = st.checkbox("""2. Handling ambiguity: If a statement is completely neutral and does not suggest any specific social group, enter "None". Use this sparingly.""")
+    guide_3 = st.checkbox("""3. Multiple associations: If a statement strongly suggests multiple groups, prioritize the most dominant one, or format your response separated by a comma, for example: "Male, Christian".""")
+
+    all_categories_checked = (
+    guide_1
+    and guide_2
+    and guide_3)
 
     st.button(
         "Begin Phase 1",
         type="primary",
         use_container_width=True,
-        disabled=not timer_expired,
+        disabled=not (timer_expired and all_categories_checked),
         on_click=lambda: st.session_state.update({"screen": 3}),
     )
 
     if not timer_expired:
         time.sleep(1)
         st.rerun()
+        
+    if timer_expired and not all_categories_checked:
+        st.warning(
+            "Please check all guidelines boxes to confirm you have read them."
+        )
 
 
 # -----------------------------
@@ -512,11 +529,11 @@ elif st.session_state.screen == 3:
             st.progress((current_idx + 1) / len(questions))
 
         st.markdown(f"### {qtext}")
-        display_category = "Age" if category == "Age cohort" else category
+        display_category = "Age Group" if category == "Age cohort" else category
 
         st.markdown(
             f'Type the <span style="color:red; font-size:1.2em; font-weight:bold;">'
-            f'{display_category}</span> that first comes to mind.',
+            f'{display_category}</span> of Person A that first comes to mind.',
             unsafe_allow_html=True,
         )
 
